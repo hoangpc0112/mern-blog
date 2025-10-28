@@ -1,6 +1,5 @@
 {
     "$schema": "https://codesandbox.io/schemas/tasks.json",
-    "setup": "cd backend && npm install && cd ../frontend && npm install",
     "tasks": {
       "backend-task": {
         "name": "Backend",
