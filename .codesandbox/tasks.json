@@ -4,7 +4,7 @@
     "tasks": {
       "backend-task": {
         "name": "Backend",
-        "command": "cd backend && npm run dev",
+        "command": "cd backend && npm i && npm run dev",
         "runAtStart": true,
         "preview": {    
           "port": 5000
@@ -12,7 +12,7 @@
       },
       "frontend-task": {
         "name": "Frontend",
-        "command": "cd frontend && npm start",
+        "command": "cd frontend && npm i && npm start",
         "runAtStart": true,
         "preview": {
           "port": 3000
