@@ -1,0 +1,23 @@
+{
+    "$schema": "https://codesandbox.io/schemas/tasks.json",
+    "setup": "cd backend && npm install && cd ../frontend && npm install",
+    "tasks": {
+      "backend-task": {
+        "name": "Backend",
+        "command": "cd backend && npm run dev",
+        "runAtStart": true,
+        "preview": {    
+          "port": 5000
+        }
+      },
+      "frontend-task": {
+        "name": "Frontend",
+        "command": "cd frontend && npm start",
+        "runAtStart": true,
+        "preview": {
+          "port": 3000
+        }
+      }
+    }
+  }
+  
