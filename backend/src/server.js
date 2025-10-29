@@ -7,11 +7,11 @@ app.use(cors());
 app.use(express.json());
 
 const data = [
-  { id: 1, title: "title 1", content: "content 1" },
+  { id: 0, title: "title 0", content: "content 0" },
   {
-    id: 2,
-    title: "title 2",
-    content: "content 2",
+    id: 1,
+    title: "title 1",
+    content: "content 1",
   },
 ];
 
@@ -24,6 +24,6 @@ app.get("/:id", (req, res) => {
   res.json(data[id]);
 });
 
-app.listen(5000, () => {
-  console.log(`Backend server đang chạy trên port 5000`);
+app.listen(8080, () => {
+  console.log(`Backend server đang chạy trên port 8080`);
 });

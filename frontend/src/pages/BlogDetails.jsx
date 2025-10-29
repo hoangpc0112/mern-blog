@@ -8,7 +8,7 @@ export default function BlogDetails() {
 
   useEffect(() => {
     const fetchPostDetails = async () => {
-      const res = await fetch(`http://localhost:5000/${id}`);
+      const res = await fetch(`http://localhost:8080/${id}`);
       const data = await res.json();
       setPost(data);
     };
