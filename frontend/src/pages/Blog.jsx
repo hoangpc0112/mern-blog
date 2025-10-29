@@ -31,7 +31,6 @@ export default function Blog() {
           <Link to={`/blog/${p.id}`} key={i}>
             <b>{p.title}</b>
           </Link>
-          <p>{p.content}</p>
           <hr />
         </>
       ))}
