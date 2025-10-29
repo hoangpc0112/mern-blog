@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Blog() {
-  const [posts, setPosts] = useState([{ title: "Bài 1", content: "Hello!" }]);
+  const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await fetch("http://localhost:5000/");
+      const data = await res.json();
+      setPosts(data);
+    };
+    fetchPosts();
+  }, []);
 
   const addPost = () => {
     if (title && content) {
@@ -17,11 +27,13 @@ export default function Blog() {
     <div>
       <h2>Blog</h2>
       {posts.map((p, i) => (
-        <div key={i}>
-          <b>{p.title}</b>
+        <>
+          <Link to={`/blog/${p.id}`} key={i}>
+            <b>{p.title}</b>
+          </Link>
           <p>{p.content}</p>
           <hr />
-        </div>
+        </>
       ))}
       <h3>Thêm bài</h3>
       <input

@@ -2,6 +2,7 @@ import { Routes, Route, useNavigate, Navigate, Link } from "react-router-dom";
 import { useState } from "react";
 import Login from "./pages/Login";
 import Blog from "./pages/Blog";
+import BlogDetails from "./pages/BlogDetails";
 
 export default function App() {
   const [user, setUser] = useState(localStorage.getItem("user"));
@@ -38,6 +39,7 @@ export default function App() {
           path="/blog"
           element={user ? <Blog /> : <Navigate to="/login" replace />}
         />
+        <Route path="/blog/:id" element={<BlogDetails />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </div>

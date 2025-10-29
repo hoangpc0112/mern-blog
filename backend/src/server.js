@@ -4,17 +4,24 @@ const cors = require("cors");
 const app = express();
 
 app.use(cors());
+app.use(express.json());
+
+const data = [
+  { id: 1, title: "title 1", content: "content 1" },
+  {
+    id: 2,
+    title: "title 2",
+    content: "content 2",
+  },
+];
 
 app.get("/", (req, res) => {
-  console.log("Đã nhận được request GET tại /api/data");
+  res.json(data);
+});
 
-  res.json({
-    message: "Chào bạn, đây là data từ backend!",
-    items: [
-      { id: 1, name: "Item 1" },
-      { id: 2, name: "Item 2" },
-    ],
-  });
+app.get("/:id", (req, res) => {
+  const id = req.params.id;
+  res.json(data[id]);
 });
 
 app.listen(5000, () => {
