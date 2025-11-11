@@ -42,6 +42,18 @@ app.get("/api/posts/:id", (req, res) => {
   res.json(data.PostList[id]);
 });
 
+app.post("/api/posts/:id/comments", jsonParser, (req, res) => {
+  const id = req.params.id;
+  const { text } = req.body;
+  const newComment = {
+    id: data.PostList[id].comment.length,
+    text,
+  };
+  data.PostList[id].comment.push(newComment);
+  console.log(`New comment added to post ${id}:`, newComment);
+  res.json(newComment);
+});
+
 app.post("/api/login", jsonParser, (req, res) => {
   return req.body.username === user.username &&
     req.body.password === user.password
