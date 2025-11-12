@@ -5,6 +5,7 @@ export default function BlogDetails() {
   const [post, setPost] = useState(null);
   const { id } = useParams();
   const [comments, setComments] = useState([]);
+  const user = localStorage.getItem("user");
 
   useEffect(() => {
     const fetchPostDetails = async () => {
@@ -41,23 +42,26 @@ export default function BlogDetails() {
       <h3>title: {post.title}</h3>
       <p>content: {post.content}</p>
       <p>comment:</p>
-      {post.comment.map((c) => (
-        <div key={c.id}>- {c.text}</div>
-      ))}
-      <h4>Thêm bình luận:</h4>
-      <input
-        type="text"
-        value={comments}
-        onChange={(e) => setComments(e.target.value)}
-        placeholder="Nhập bình luận..."
-      />
-      <button
-        onClick={() => {
-          handleCommentSubmit();
-        }}
-      >
-        Gửi bình luận
-      </button>
+      {post.comment &&
+        post.comment.map((c) => <div key={c.id}>- {c.text}</div>)}
+      {user && (
+        <div>
+          <h4>Thêm bình luận:</h4>
+          <input
+            type="text"
+            value={comments}
+            onChange={(e) => setComments(e.target.value)}
+            placeholder="Nhập bình luận..."
+          />
+          <button
+            onClick={() => {
+              handleCommentSubmit();
+            }}
+          >
+            Gửi bình luận
+          </button>
+        </div>
+      )}
     </div>
   );
 }

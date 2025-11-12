@@ -8,6 +8,7 @@ import NewPost from "./pages/NewPost";
 import NoMatch from "./pages/NoMatch";
 import ProtectedRoute from "./ProtectedRoute";
 import Home from "./pages/Home";
+import AdminPage from "./pages/AdminPage";
 
 const AppLayout = () => {
   const user = localStorage.getItem("user");
@@ -46,6 +47,11 @@ const AppLayout = () => {
             Login
           </Link>
         )}
+        {user === "admin" && (
+          <Link to="/admin" style={{ padding: 5 }}>
+            Admin
+          </Link>
+        )}
         {user && (
           <span onClick={logOut} style={{ padding: 5, cursor: "pointer" }}>
             Logout
@@ -58,6 +64,14 @@ const AppLayout = () => {
         <Route path="/posts/:id" element={<Post />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute user={user}>
+              <AdminPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/stats"
           element={
