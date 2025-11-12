@@ -88,3 +88,12 @@ export const deletePost = async (req, res) => {
     res.status(500).json({ message: "Error deleting post" });
   }
 };
+
+export const getPostCount = async (req, res) => {
+  try {
+    const count = await Post.countDocuments();
+    res.json(count);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching post count" });
+  }
+};

@@ -1,12 +1,9 @@
-import React from "react";
-
 const Home = () => {
   return (
-    <div>
-      <h1>Home Page</h1>
-      <p>
-        Welcome to the home page! Here you can find the latest updates and news.
-      </p>
+    <div className="page-container home-page">
+      <div className="hero-section">
+        <h1>MERN Blog</h1>
+      </div>
     </div>
   );
 };

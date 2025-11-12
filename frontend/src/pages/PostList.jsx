@@ -18,7 +18,7 @@ export default function Blog() {
   const searchFunc = async () => {
     try {
       const res = await fetch(
-        "http://localhost:8080/api/search?key=" + searchTerm
+        "http://localhost:8080/api/posts?title=" + searchTerm
       );
       if (!res.ok) {
         throw new Error("Network response was not ok");
@@ -31,23 +31,38 @@ export default function Blog() {
   };
 
   return (
-    <div>
-      <h2>Blog</h2>
-      {posts.map((p) => (
-        <div key={p._id}>
-          <Link to={`/posts/${p._id}`}>
-            <b>{p.title}</b>
-          </Link>
-          <hr />
-        </div>
-      ))}
+    <div className="page-container">
+      <h1>All Posts</h1>
 
-      <h2>Search</h2>
-      <input
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <button onClick={searchFunc}>Search</button>
+      <div className="search-box">
+        <input
+          type="text"
+          placeholder="Search posts by title or content..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+        <button onClick={searchFunc} className="btn-search">
+          Search
+        </button>
+      </div>
+
+      <div className="posts-list">
+        {posts.length === 0 ? (
+          <div className="no-posts">No posts found</div>
+        ) : (
+          posts.map((p) => (
+            <div key={p._id} className="post-item">
+              <Link to={`/posts/${p._id}`} className="post-link">
+                <h3>{p.title}</h3>
+                <p className="post-preview">
+                  {p.content?.substring(0, 150)}...
+                </p>
+              </Link>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }

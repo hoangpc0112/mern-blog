@@ -18,23 +18,41 @@ const AdminPage = () => {
   };
 
   return (
-    <div>
-      <h1>Admin Page</h1>
-      <p>Quản lý bài viết và người dùng</p>
-      <h1>ADd user</h1>
-      <input
-        type="text"
-        value={user}
-        onChange={(e) => setUser(e.target.value)}
-        placeholder="username"
-      />{" "}
-      <input
-        type="text"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="password"
-      />
-      <button onClick={handleAddUser}>Add User</button>
+    <div className="page-container">
+      <div className="form-card">
+        <h1>Admin Panel</h1>
+        <form
+          className="post-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleAddUser();
+          }}
+        >
+          <div className="form-group">
+            <label>Username</label>
+            <input
+              type="text"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+              placeholder="Enter username"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
+              required
+            />
+          </div>
+          <button type="submit" className="btn-primary">
+            Add User
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

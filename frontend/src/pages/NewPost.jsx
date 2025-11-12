@@ -20,20 +20,41 @@ const NewPost = () => {
   };
 
   return (
-    <div>
-      <h1>Add post</h1>
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <textarea
-        placeholder="Content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
-      <button onClick={handleSubmit}>Submit</button>
+    <div className="page-container">
+      <div className="form-card">
+        <h1>Create New Post</h1>
+        <form
+          className="post-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
+          <div className="form-group">
+            <label>Title</label>
+            <input
+              type="text"
+              placeholder="Enter an eye-catching title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Content</label>
+            <textarea
+              placeholder="Write your post content here..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              required
+              rows="10"
+            />
+          </div>
+          <button type="submit" className="btn-primary">
+            Publish Post
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

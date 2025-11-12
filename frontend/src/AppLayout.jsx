@@ -22,81 +22,74 @@ const AppLayout = () => {
 
   return (
     <>
-      <nav style={{ margin: 10 }}>
-        <Link to="/" style={{ padding: 5 }}>
-          Home
-        </Link>
-        <Link to="/posts" style={{ padding: 5 }}>
-          Posts
-        </Link>
-        <Link to="/about" style={{ padding: 5 }}>
-          About
-        </Link>
-        <span> | </span>
-        {user && (
-          <Link to="/stats" style={{ padding: 5 }}>
-            Stats
-          </Link>
-        )}
-        {user && (
-          <Link to="/newpost" style={{ padding: 5 }}>
-            New Post
-          </Link>
-        )}
-        {!user && (
-          <Link to="/login" style={{ padding: 5 }}>
-            Login
-          </Link>
-        )}
-        {user === "admin" && (
-          <Link to="/admin" style={{ padding: 5 }}>
-            Admin
-          </Link>
-        )}
-        {user && (
-          <span onClick={logOut} style={{ padding: 5, cursor: "pointer" }}>
-            Logout
-          </span>
-        )}
-        {!user && (
-          <Link to="/register" style={{ padding: 5 }}>
-            Register
-          </Link>
-        )}
+      <nav className="navbar">
+        <div className="nav-brand">
+          <Link to="/">MERN Blog</Link>
+        </div>
+        <div className="nav-links">
+          <Link to="/">Home</Link>
+          <Link to="/posts">Posts</Link>
+          <Link to="/about">About</Link>
+          {user && <Link to="/stats">Stats</Link>}
+          {user && <Link to="/newpost">New Post</Link>}
+          {user === "admin" && <Link to="/admin">Admin</Link>}
+        </div>
+        <div className="nav-auth">
+          {!user && (
+            <Link to="/login" className="btn-nav">
+              Login
+            </Link>
+          )}
+          {!user && (
+            <Link to="/register" className="btn-nav">
+              Register
+            </Link>
+          )}
+          {user && (
+            <div className="user-info">
+              <span className="username">{user}</span>
+              <button onClick={logOut} className="btn-logout">
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
       </nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/posts" element={<PostList />} />
-        <Route path="/posts/:id" element={<Post />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute user={user}>
-              <AdminPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/stats"
-          element={
-            <ProtectedRoute user={user}>
-              <Stats />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/newpost"
-          element={
-            <ProtectedRoute user={user}>
-              <NewPost />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="*" element={<NoMatch />} />
-      </Routes>
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/posts" element={<PostList />} />
+          <Route path="/posts/:id" element={<Post />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute user={user}>
+                <AdminPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/stats"
+            element={
+              <ProtectedRoute user={user}>
+                <Stats />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/newpost"
+            element={
+              <ProtectedRoute user={user}>
+                <NewPost />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
+      </main>
     </>
   );
 };

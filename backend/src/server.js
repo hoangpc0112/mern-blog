@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 
-const user = { username: "admin", password: "admin" };
+// const user = { username: "admin", password: "admin" };
 
 // const userList = [
 //   {
@@ -43,9 +43,9 @@ const user = { username: "admin", password: "admin" };
 //   res.json(newPost);
 // });
 
-app.get("/api/stats", (req, res) => {
-  res.json({ length: data.length });
-});
+// app.get("/api/stats", (req, res) => {
+//   res.json({ length: data.length });
+// });
 
 // app.get("/api/search", (req, res) => {
 //   const text = req.query.key;
@@ -82,12 +82,12 @@ app.get("/api/stats", (req, res) => {
 //   res.status(201).json({ message: "User created successfully" });
 // });
 
-app.post("/api/login", (req, res) => {
-  return req.body.username === user.username &&
-    req.body.password === user.password
-    ? res.json(user)
-    : res.status(401);
-});
+// app.post("/api/login", (req, res) => {
+//   return req.body.username === user.username &&
+//     req.body.password === user.password
+//     ? res.json(user)
+//     : res.status(401);
+// });
 
 connectDB().then(() => {
   app.listen(8080, () => {

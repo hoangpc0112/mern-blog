@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = async () => {
-    const res = await fetch("http://localhost:8080/api/user", {
+    const res = await fetch("http://localhost:8080/api/users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -16,25 +18,46 @@ const Register = () => {
       alert("User registered successfully!");
       setUsername("");
       setPassword("");
+      navigate("/login");
     }
   };
 
   return (
-    <div>
-      <h1>Register</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleRegister}>Register</button>
+    <div className="page-container auth-page">
+      <div className="auth-card">
+        <h1>Register</h1>
+        <form
+          className="auth-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleRegister();
+          }}
+        >
+          <div className="form-group">
+            <label>Username</label>
+            <input
+              type="text"
+              placeholder="Choose a username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="Create a password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="btn-primary">
+            Create Account
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

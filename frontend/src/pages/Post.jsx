@@ -30,34 +30,54 @@ export default function BlogDetails() {
   };
 
   if (!post) {
-    return <div>Đang tải bài viết...</div>;
+    return <div className="loading">⏳ Loading post...</div>;
   }
 
   return (
-    <div>
-      <h3>title: {post.title}</h3>
-      <p>content: {post.content}</p>
-      <p>comment:</p>
-      {post.comments &&
-        post.comments.map((c) => <div key={c._id}>- {c.text}</div>)}
-      {user && (
-        <div>
-          <h4>Thêm bình luận:</h4>
-          <input
-            type="text"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder="Nhập bình luận..."
-          />
-          <button
-            onClick={() => {
-              handleCommentSubmit();
-            }}
-          >
-            Gửi bình luận
-          </button>
+    <div className="page-container post-detail">
+      <article className="post-content">
+        <h1>{post.title}</h1>
+        <div className="post-body">
+          <p>{post.content}</p>
         </div>
-      )}
+      </article>
+
+      <section className="comments-section">
+        <h2>Comments ({post.comments?.length || 0})</h2>
+
+        {user && (
+          <div className="comment-form">
+            <input
+              type="text"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Write a comment..."
+              className="comment-input"
+            />
+            <button onClick={handleCommentSubmit} className="btn-submit">
+              Post Comment
+            </button>
+          </div>
+        )}
+
+        {!user && (
+          <div className="login-prompt">Please login to leave a comment</div>
+        )}
+
+        <div className="comments-list">
+          {post.comments && post.comments.length > 0 ? (
+            post.comments.map((c) => (
+              <div key={c._id} className="comment-item">
+                <div className="comment-text">{c.text}</div>
+              </div>
+            ))
+          ) : (
+            <div className="no-comments">
+              No comments yet. Be the first to comment!
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   );
 }
