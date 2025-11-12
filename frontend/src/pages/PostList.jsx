@@ -34,8 +34,8 @@ export default function Blog() {
     <div>
       <h2>Blog</h2>
       {posts.map((p) => (
-        <div key={p.id}>
-          <Link to={`/posts/${p.id}`}>
+        <div key={p._id}>
+          <Link to={`/posts/${p._id}`}>
             <b>{p.title}</b>
           </Link>
           <hr />

@@ -9,6 +9,7 @@ import NoMatch from "./pages/NoMatch";
 import ProtectedRoute from "./ProtectedRoute";
 import Home from "./pages/Home";
 import AdminPage from "./pages/AdminPage";
+import Register from "./pages/Register";
 
 const AppLayout = () => {
   const user = localStorage.getItem("user");
@@ -57,6 +58,11 @@ const AppLayout = () => {
             Logout
           </span>
         )}
+        {!user && (
+          <Link to="/register" style={{ padding: 5 }}>
+            Register
+          </Link>
+        )}
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -64,6 +70,7 @@ const AppLayout = () => {
         <Route path="/posts/:id" element={<Post />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/admin"
           element={
