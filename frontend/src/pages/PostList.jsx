@@ -30,14 +30,37 @@ export default function Blog() {
     }
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      try {
+        const res = await fetch(`http://localhost:8080/api/posts/${id}`, {
+          method: "DELETE",
+        });
+        if (res.ok) {
+          alert("Post deleted successfully!");
+          fetchPosts();
+        } else {
+          alert("Failed to delete post.");
+        }
+      } catch (error) {
+        console.error("Failed to delete post:", error);
+      }
+    }
+  };
+
   return (
     <div className="page-container">
-      <h1>All Posts</h1>
+      <div className="posts-header">
+        <h1>All Posts</h1>
+        <Link to="/newpost" className="btn-new-post">
+          + New Post
+        </Link>
+      </div>
 
       <div className="search-box">
         <input
           type="text"
-          placeholder="Search posts by title or content..."
+          placeholder="Search posts..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="search-input"
@@ -47,18 +70,32 @@ export default function Blog() {
         </button>
       </div>
 
-      <div className="posts-list">
+      <div className="posts-grid">
         {posts.length === 0 ? (
           <div className="no-posts">No posts found</div>
         ) : (
           posts.map((p) => (
-            <div key={p._id} className="post-item">
-              <Link to={`/posts/${p._id}`} className="post-link">
-                <h3>{p.title}</h3>
-                <p className="post-preview">
-                  {p.content?.substring(0, 150)}...
+            <div key={p._id} className="post-card">
+              <Link to={`/posts/${p._id}`} className="post-card-link">
+                <h3 className="post-title">{p.title}</h3>
+                <p className="post-excerpt">
+                  {p.content?.substring(0, 120)}...
                 </p>
               </Link>
+              <div className="post-actions">
+                <button
+                  onClick={() => handleUpdate(p._id)}
+                  className="btn-edit"
+                >
+                  View
+                </button>
+                <button
+                  onClick={() => handleDelete(p._id)}
+                  className="btn-delete"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))
         )}

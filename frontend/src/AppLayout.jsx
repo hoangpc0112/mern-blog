@@ -30,20 +30,24 @@ const AppLayout = () => {
           <Link to="/">Home</Link>
           <Link to="/posts">Posts</Link>
           <Link to="/about">About</Link>
-          {user && <Link to="/stats">Stats</Link>}
-          {user && <Link to="/newpost">New Post</Link>}
+          {user && (
+            <>
+              <Link to="/stats">Stats</Link>
+              <Link to="/newpost">New Post</Link>
+            </>
+          )}
           {user === "admin" && <Link to="/admin">Admin</Link>}
         </div>
         <div className="nav-auth">
           {!user && (
-            <Link to="/login" className="btn-nav">
-              Login
-            </Link>
-          )}
-          {!user && (
-            <Link to="/register" className="btn-nav">
-              Register
-            </Link>
+            <>
+              <Link to="/login" className="btn-nav">
+                Login
+              </Link>
+              <Link to="/register" className="btn-nav">
+                Register
+              </Link>
+            </>
           )}
           {user && (
             <div className="user-info">
