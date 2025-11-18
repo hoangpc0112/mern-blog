@@ -1,0 +1,23 @@
+.comments-list {
+  margin-top: 2rem;
+}
+
+.comment-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border-left: 3px solid #3498db;
+}
+
+.comment-text {
+  color: #555;
+}
+
+.no-comments {
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+}

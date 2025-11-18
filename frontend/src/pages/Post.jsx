@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import ApiClient from "../configs/apiClient";
+import "../styles/post.css";
 
 export default function BlogDetails() {
   const [post, setPost] = useState(null);
@@ -7,56 +9,67 @@ export default function BlogDetails() {
   const [comment, setComment] = useState("");
   const user = localStorage.getItem("user");
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchPostDetails = async () => {
-      const res = await fetch(`http://localhost:8080/api/posts/${id}`);
-      const data = await res.json();
-      setPost(data);
+      setLoading(true);
+      const res = await ApiClient.get(`/posts/${id}`);
+      if (res.ok) {
+        setPost(res.body);
+        setError(null);
+      } else {
+        setError("Failed to fetch post details. Error: " + res.body.message);
+      }
+      setLoading(false);
     };
     fetchPostDetails();
   }, [id]);
 
   const handleCommentSubmit = async () => {
-    const res = await fetch(`http://localhost:8080/api/posts/${id}/comments`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text: comment }),
+    const res = await ApiClient.post(`/posts/${id}/comments`, {
+      text: comment,
     });
-    const newPost = await res.json();
-    setPost(newPost);
+    if (res.ok) {
+      setPost(res.body);
+      setError(null);
+    } else {
+      setError("Failed to post comment. Error: " + res.body.message);
+    }
     setComment("");
   };
 
-  if (!post) {
-    return <div className="loading">⏳ Loading post...</div>;
-  }
-
-  return (
-    <div className="page-container post-detail">
+  return loading ? (
+    <div className="loading">Loading post...</div>
+  ) : (
+    <div className="post-detail">
       <article className="post-content">
         <h1>{post.title}</h1>
         <div className="post-body">
           <p>{post.content}</p>
         </div>
-      </article>
-
+      </article>{" "}
+      {error && <p className="error-message">{error}</p>}
       <section className="comments-section">
         <h2>Comments ({post.comments?.length || 0})</h2>
 
         {user && (
           <div className="comment-form">
-            <input
-              type="text"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              placeholder="Write a comment..."
-              className="comment-input"
-            />
-            <button onClick={handleCommentSubmit} className="btn-submit">
-              Post Comment
-            </button>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleCommentSubmit();
+              }}
+            >
+              <input
+                type="text"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Write a comment..."
+              />
+              <button type="submit">Post Comment</button>
+            </form>
           </div>
         )}
 

@@ -1,18 +1,12 @@
 {
-  // Chỉ dùng để cài đặt dependencies
-  "setupTasks": [
-    "cd backend && npm i",
-    "cd frontend && npm i"
-  ],
-
-  // Dùng để định nghĩa các server chạy liên tục
+  "setupTasks": ["cd backend && npm i", "cd frontend && npm i"],
   "tasks": {
     "backend": {
       "name": "Backend Server",
       "command": "cd backend && npm run dev",
       "runAtStart": true,
       "preview": {
-        "port": 8080 // <-- THAY CỔNG BACKEND CỦA BẠN VÀO ĐÂY
+        "port": 80800
       }
     },
     "frontend": {
@@ -20,7 +14,7 @@
       "command": "cd frontend && npm start",
       "runAtStart": true,
       "preview": {
-        "port": 3000 // <-- THAY CỔNG FRONTEND CỦA BẠN VÀO ĐÂY
+        "port": 3000
       }
     }
   }

@@ -1,0 +1,107 @@
+/* Posts List */
+.posts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.btn-new-post {
+  background-color: #3498db;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.search-box {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.search-input {
+  flex: 1;
+  margin: 0 !important;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.post-card {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.post-card-link {
+  text-decoration: none;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.post-title {
+  color: #2c3e50;
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.post-excerpt {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.post-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.btn-view {
+  flex: 1;
+  background-color: #3498db;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.btn-delete {
+  flex: 1;
+  background-color: #e74c3c;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  width: auto;
+  cursor: pointer;
+}
+
+.btn-delete:active {
+  background-color: #c0392b;
+}
+
+.no-posts {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: #999;
+}

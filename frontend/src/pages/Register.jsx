@@ -1,29 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ApiClient from "../configs/apiClient";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    const res = await fetch("http://localhost:8080/api/users/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username: username, password: password }),
+    const res = await ApiClient.post("/users/register", {
+      username: username,
+      password: password,
     });
     if (res.ok) {
       alert("User registered successfully!");
       setUsername("");
       setPassword("");
+      setError(null);
       navigate("/login");
+    } else {
+      setError("Failed to register. Error: " + res.body.message);
     }
   };
 
   return (
-    <div className="page-container auth-page">
+    <div className="auth-page">
       <div className="auth-card">
         <h1>Register</h1>
         <form
@@ -56,6 +58,7 @@ const Register = () => {
           <button type="submit" className="btn-primary">
             Create Account
           </button>
+          {error && <p className="error-message">{error}</p>}
         </form>
       </div>
     </div>

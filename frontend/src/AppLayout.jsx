@@ -60,39 +60,41 @@ const AppLayout = () => {
         </div>
       </nav>
       <main className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/posts" element={<PostList />} />
-          <Route path="/posts/:id" element={<Post />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute user={user}>
-                <AdminPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/stats"
-            element={
-              <ProtectedRoute user={user}>
-                <Stats />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/newpost"
-            element={
-              <ProtectedRoute user={user}>
-                <NewPost />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<NoMatch />} />
-        </Routes>
+        <div className="page-container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/posts" element={<PostList />} />
+            <Route path="/posts/:id" element={<Post />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute user={user}>
+                  <AdminPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/stats"
+              element={
+                <ProtectedRoute user={user}>
+                  <Stats />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/newpost"
+              element={
+                <ProtectedRoute user={user}>
+                  <NewPost />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<NoMatch />} />
+          </Routes>
+        </div>
       </main>
     </>
   );

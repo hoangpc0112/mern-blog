@@ -1,35 +1,38 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ApiClient from "../configs/apiClient";
 
 export default function Login() {
-  const [u, setU] = useState("");
-  const [p, setP] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const login = async (username, password) => {
-    const res = await fetch("http://localhost:8080/api/users/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+  const login = async () => {
+    const res = await ApiClient.post("/users/login", {
+      username,
+      password,
     });
     if (res.ok) {
       alert("Login successful!");
-      localStorage.setItem("user", username);
+      setUsername("");
+      setPassword("");
+      localStorage.setItem("user", res.body.username);
       navigate("/posts");
     } else {
-      alert("Login failed.");
+      setError("Login failed. Error: " + res.body.message);
     }
   };
 
   return (
-    <div className="page-container auth-page">
+    <div className="auth-page">
       <div className="auth-card">
         <h1>Login</h1>
         <form
           className="auth-form"
           onSubmit={(e) => {
             e.preventDefault();
-            login(u, p);
+            login();
           }}
         >
           <div className="form-group">
@@ -37,7 +40,8 @@ export default function Login() {
             <input
               type="text"
               placeholder="Enter your username"
-              onChange={(e) => setU(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -46,13 +50,15 @@ export default function Login() {
             <input
               placeholder="Enter your password"
               type="password"
-              onChange={(e) => setP(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
           <button type="submit" className="btn-primary">
             Login
           </button>
+          {error && <p className="error-message">{error}</p>}
         </form>
       </div>
     </div>

@@ -1,27 +1,33 @@
 import { useState, useEffect } from "react";
+import ApiClient from "../configs/apiClient";
 
 const Stats = () => {
   const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchStats = async () => {
-      const res = await fetch("http://localhost:8080/api/posts/stats/count");
-      const data = await res.json();
-      setTotal(data);
+      setLoading(true);
+
+      const res = await ApiClient.get("/posts/stats/count");
+      if (res.ok) {
+        setTotal(res.body);
+        setError(null);
+      } else {
+        setError("Failed to fetch statistics. Error: " + res.body.message);
+      }
+      setLoading(false);
     };
     fetchStats();
   }, []);
 
   return (
-    <div className="page-container">
+    <>
       <h1>Statistics</h1>
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-number">{total}</div>
-          <div className="stat-label">Total Posts</div>
-        </div>
-      </div>
-    </div>
+      <h3>Total Posts: {loading ? "Loading..." : total}</h3>
+      {error && <p className="error-message">{error}</p>}
+    </>
   );
 };
 
