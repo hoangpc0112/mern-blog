@@ -6,7 +6,7 @@
       "command": "cd backend && npm run dev",
       "runAtStart": true,
       "preview": {
-        "port": 80800
+        "port": 8080
       }
     },
     "frontend": {
